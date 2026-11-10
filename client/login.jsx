@@ -1,6 +1,9 @@
 //First, we will require our helper code into this
 // file(which we can do because of webpack), as well as
 // the React and ReactDOM / client libraries.We will 
+
+import { signup } from '../server/controllers/Account.js';
+
 // grab the functions we need out of them
 const helper = require('./helper.js');
 const React = require('react');
@@ -39,4 +42,65 @@ const handleSignup = (e) => {
         helper.handleError('Passwords do not match!');
         return false;
     }
+
+    helper.sendPost(e.target.action, { username, pass, pass2 });
+    return false;
 }
+
+const LoginWindow = (props) => {
+    return (
+        <form id='loginForm'
+            name='loginForm'
+            onSubmit={handleLogin}
+            action='/login'
+            method="POST"
+            className='mainForm'>
+            <label htmlFor='username'>Username: </label>
+            <label id='user' type='text' name='username' placeholder='username' />
+            <label htmlFor='pass'>Password: </label>
+            <input className='formSubmit' type='submit' value='Sign in' />
+        </form>
+    );
+};
+
+const SignupWindow = (props) => {
+    return (
+        <form id='signupForm'
+            name='signupForm'
+            onSubmit={handleSignup}
+            action='/signup'
+            method="POST"
+            className='mainForm'>
+            <label htmlFor='username'>Username: </label>
+            <input id='user' type='text' name='username' placeholder='username' />
+            <label htmlFor='pass'>Password: </label>
+            <input id='pass' type='password' name='pass' placeholder='password' />
+            <label htmlFor='pass'>Password: </label>
+            <input id='pass2' type='password' name="pass2" placeholder='retype password' />
+            <input className='formSubmit' type='submit' value='Sign up' />
+        </form>
+    );
+};
+
+const init = () => {
+    const loginButton = document.getElementById('loginButton');
+    const signupButton = document.getElementById('signupButton');
+
+    const root = createRoot(document.getElementById('content'));
+
+    loginButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        root.render(<LoginWindow />);
+        return false;
+    });
+
+    signupButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        root.render(<SignupWindow />);
+        return false;
+    });
+
+    root.render(<LoginWindow />);
+};
+window.onload = init;
+
