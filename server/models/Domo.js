@@ -25,11 +25,15 @@ const DomoSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    desc: {
+        type: String,
+    }
 });
 
 DomoSchema.statics.toAPI = (doc) => ({
     name: doc.name,
     age: doc.age,
+    desc: doc.desc,
 });
 
 const DomoModel = mongoose.model('Domo', DomoSchema);
