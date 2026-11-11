@@ -5,7 +5,7 @@
 // grab the functions we need out of them
 const helper = require('./helper.js');
 const React = require('react');
-const { createRoot } = require('react-dom/client');
+import { createRoot } from 'react-dom/client';
 
 const handleLogin = (e) => {
     e.preventDefault();
@@ -53,10 +53,10 @@ const LoginWindow = (props) => {
             action='/login'
             method="POST"
             className='mainForm'>
-
             <label htmlFor='username'>Username: </label>
-            <label id='user' type='text' name='username' placeholder='username' />
+            <input id='user' type='text' name='username' placeholder='username' />
             <label htmlFor='pass'>Password: </label>
+            <input id='pass' type='password' name='pass' placeholder='password' />
             <input className='formSubmit' type='submit' value='Sign in' />
         </form>
     );
@@ -82,9 +82,30 @@ const SignupWindow = (props) => {
     );
 };
 
+
+// const App = () => {
+//     const [reloadDomos, setReloadDomos] = useState(false);
+
+//     return (
+//         <div>
+//             <div id='makeDomo'>
+//                // <DomoForm triggerReload={() => setReloadDomos(!reloadDomos)} />
+//             </div>
+//             <div id='domos'>
+//                 <DomoList domos={[]} reloadDomos={reloadDomos} />
+//             </div>
+//         </div>
+//     );
+// };
+
+// const init = () => {
+//     const root = createRoot(document.getElementById('app'));
+//     root.render(<App />);
+// };
+
 const init = () => {
-    const loginButton = document.getElementById('loginButton');
-    const signupButton = document.getElementById('signupButton');
+    const loginButton = document.querySelector('#loginButton');
+    const signupButton = document.querySelector('#signupButton');
 
     const root = createRoot(document.getElementById('content'));
 
