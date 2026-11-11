@@ -2,12 +2,10 @@
 // file(which we can do because of webpack), as well as
 // the React and ReactDOM / client libraries.We will 
 
-import { signup } from '../server/controllers/Account.js';
-
 // grab the functions we need out of them
 const helper = require('./helper.js');
 const React = require('react');
-const { createRoot } = require('react-dom.client');
+const { createRoot } = require('react-dom/client');
 
 const handleLogin = (e) => {
     e.preventDefault();
@@ -55,6 +53,7 @@ const LoginWindow = (props) => {
             action='/login'
             method="POST"
             className='mainForm'>
+
             <label htmlFor='username'>Username: </label>
             <label id='user' type='text' name='username' placeholder='username' />
             <label htmlFor='pass'>Password: </label>
@@ -71,6 +70,7 @@ const SignupWindow = (props) => {
             action='/signup'
             method="POST"
             className='mainForm'>
+
             <label htmlFor='username'>Username: </label>
             <input id='user' type='text' name='username' placeholder='username' />
             <label htmlFor='pass'>Password: </label>
@@ -102,5 +102,6 @@ const init = () => {
 
     root.render(<LoginWindow />);
 };
+
 window.onload = init;
 
