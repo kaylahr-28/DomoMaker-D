@@ -9,7 +9,6 @@ const moreUsersPage = async (req, res) => {
     // const users = await Account.find({});
     // console.log(users);
     return res.render('app');
-
 }
 
 const getUsers = async (req, res) => {

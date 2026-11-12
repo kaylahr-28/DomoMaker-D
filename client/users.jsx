@@ -21,13 +21,13 @@ const { createRoot } = require('react-dom/client');
 //     return false;
 // }
 
-const DomoForm = (props) => {
+const UserForm = (props) => {
     return (
         <div>this is the users page</div>
     );
 };
 
-const DomoList = (props) => {
+const UserList = (props) => {
     const [users, setUsers] = useState(props.users);
 
     useEffect(() => {
@@ -69,10 +69,10 @@ const App = () => {
     return (
         <div>
             <div id='makeDomo'>
-                <DomoForm />
+                <UserForm />
             </div>
             <div id='domos'>
-                <DomoList domos={[]} reloadDomos={reloadDomos} />
+                <UserList domos={[]} reloadDomos={reloadDomos} />
             </div>
         </div>
     );
