@@ -28,13 +28,14 @@ const UserForm = (props) => {
 };
 
 const UserList = (props) => {
-    const [users, setUsers] = useState(props.users);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const loadUsersFromServer = async () => {
             const response = await fetch('/getUsers');
             const data = await response.json();
             setUsers(data.users);
+            console.log('data', data);
         };
         loadUsersFromServer();
     }, [props.reloadUsers]);
@@ -46,12 +47,11 @@ const UserList = (props) => {
             </div>
         );
     }
-
-    const userNodes = user.map(user => {
+    const userNodes = users.map(user => {
         return (
             <div key={user.id} className='domo'>
                 <img src='/assets/img/domoface.jpeg' alt='domo face' className='domoFace' />
-                <h3 className='domoName'>Name: {user.username}</h3>
+                <h3 className='domoName'>Username: {user.username}</h3>
             </div>
         );
     });
@@ -68,18 +68,20 @@ const App = () => {
 
     return (
         <div>
-            <div id='makeDomo'>
+            <UserForm />
+            <div id='domos'>
+                <UserList />
+            </div>
+            {/* <div id='makeDomo'>
                 <UserForm />
             </div>
-            <div id='domos'>
-                <UserList domos={[]} reloadDomos={reloadDomos} />
-            </div>
+             */}
         </div>
     );
 };
 
 const init = () => {
-    const root = createRoot(document.getElementById('app'));
+    const root = createRoot(document.getElementById('users'));
     root.render(<App />);
 };
 
