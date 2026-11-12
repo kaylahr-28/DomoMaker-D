@@ -5,6 +5,26 @@ const loginPage = (req, res) => {
     return res.render('login');
 };
 
+const moreUsersPage = async (req, res) => {
+    // const users = await Account.find({});
+    // console.log(users);
+    return res.render('app');
+
+}
+
+const getUsers = async (req, res) => {
+    try {
+        // const query = { owner: req.session.account._id };
+        //get all users
+        const docs = await Account.find({});
+        console.log(docs);
+        return res.json({ users: docs });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Error retrieving users :(' });
+    }
+};
+
 
 const logout = (req, res) => {
     //removes user's session, called on logout so
@@ -30,6 +50,7 @@ const login = (req, res) => {
         req.session.account = Account.toAPI(account);
         return res.json({ redirect: '/maker' });
     })
+
 };
 
 const signup = async (req, res) => {
@@ -66,4 +87,6 @@ module.exports = {
     login,
     logout,
     signup,
+    moreUsersPage,
+    getUsers
 }
