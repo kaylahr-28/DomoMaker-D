@@ -77,10 +77,6 @@ const App = () => {
             <div id='domos'>
                 <UserList />
             </div>
-            {/* <div id='makeDomo'>
-                <UserForm />
-            </div>
-             */}
         </div>
     );
 };
