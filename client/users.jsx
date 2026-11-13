@@ -21,21 +21,26 @@ const { createRoot } = require('react-dom/client');
 //     return false;
 // }
 
-const UserForm = (props) => {
+const UserHeader = (props) => {
     return (
-        <div>this is the users page</div>
+        <h1>All Users</h1>
     );
 };
 
 const UserList = (props) => {
     const [users, setUsers] = useState([]);
-
+    const formatDate = (date) => {
+        const dateFormat = new Intl.DateTimeFormat('en-US', {
+            month: 'long',
+            year: 'numeric'
+        });
+        return dateFormat.format(date);
+    }
     useEffect(() => {
         const loadUsersFromServer = async () => {
             const response = await fetch('/getUsers');
             const data = await response.json();
             setUsers(data.users);
-            console.log('data', data);
         };
         loadUsersFromServer();
     }, [props.reloadUsers]);
@@ -43,15 +48,16 @@ const UserList = (props) => {
     if (users.length === 0) {
         return (
             <div className='domoList'>
-                <h3 className='emptyDomo'>No Users Yet...</h3>
+                <h3 className='emptyDomo'>No Other Users Yet...</h3>
             </div>
         );
     }
     const userNodes = users.map(user => {
         return (
-            <div key={user.id} className='domo'>
+            <div key={user._id} className='domo'>
                 <img src='/assets/img/domoface.jpeg' alt='domo face' className='domoFace' />
                 <h3 className='domoName'>Username: {user.username}</h3>
+                <h4>Joined {formatDate(user.dateCreated)}</h4>
             </div>
         );
     });
@@ -68,7 +74,7 @@ const App = () => {
 
     return (
         <div>
-            <UserForm />
+            <UserHeader />
             <div id='domos'>
                 <UserList />
             </div>

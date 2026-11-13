@@ -18,6 +18,11 @@ const saltRounds = 10;
 
 let AccountModel = {};
 
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  year: 'numeric'
+});
+
 /* Our schema defines the data we will store. A username (string of alphanumeric
    characters), a password (actually the hashed version of the password created
    by bcrypt), and the created date.
@@ -35,8 +40,8 @@ const AccountSchema = new mongoose.Schema({
     required: true,
   },
   createdDate: {
-    type: Date,
-    default: Date.now,
+    type: Date || String,
+    default: dateFormat.format(new Date),
   },
 });
 
@@ -44,6 +49,7 @@ const AccountSchema = new mongoose.Schema({
 AccountSchema.statics.toAPI = (doc) => ({
   username: doc.username,
   _id: doc._id,
+  joined: dateFormat.format(doc.createdDate),
 });
 
 // Helper function to hash a password
@@ -58,8 +64,8 @@ AccountSchema.statics.generateHash = (password) => bcrypt.hash(password, saltRou
 */
 AccountSchema.statics.authenticate = async (username, password, callback) => {
   try {
-    const doc = await AccountModel.findOne({username}).exec();
-    if(!doc) {
+    const doc = await AccountModel.findOne({ username }).exec();
+    if (!doc) {
       return callback();
     }
 

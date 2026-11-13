@@ -6,17 +6,15 @@ const loginPage = (req, res) => {
 };
 
 const moreUsersPage = async (req, res) => {
-    // const users = await Account.find({});
-    // console.log(users);
     return res.render('users');
 }
 
 const getUsers = async (req, res) => {
     try {
-        // const query = { owner: req.session.account._id };
-        //get all users
-        const docs = await Account.find({});
-        console.log(docs);
+        //find all users EXCEPT user's own account
+        const query = { _id: { $ne: req.session.account._id } };
+        const docs = await Account.find(query);
+
         return res.json({ users: docs });
     } catch (err) {
         console.log(err);
