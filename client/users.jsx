@@ -70,7 +70,6 @@ const UserList = (props) => {
 };
 
 const App = () => {
-    const [reloadDomos, setReloadDomos] = useState(false);
 
     return (
         <div>
